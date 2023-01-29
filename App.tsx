@@ -1,26 +1,27 @@
 import { StatusBar } from 'expo-status-bar'
-import { StyleSheet, Text, View } from 'react-native'
+import { View } from 'react-native'
+import { ApiProvider } from '@reduxjs/toolkit/query/react'
 
 import Home from './src/components/Home'
-import useFetch from './src/hooks/useFetch'
+import Header from './src/components/Header'
+import Footer from './src/components/Footer'
+import { launchApi } from './src/store'
+
+import { styles } from './src/styles/styling'
+import UpcomingLaunches from './src/components/UpcomingLaunches'
+
 
 export default function App() {
-  const data = useFetch('https://api.spacexdata.com/v5/launches')
-  console.log(data)
 
-  return (
-    <View style={styles.container}>
-      <Home />
-      <StatusBar style="auto" />
-    </View>
-  );
+	return (
+		<ApiProvider api={launchApi}>
+			<View style={styles.header}></View>
+			<View style={styles.container}>
+				<UpcomingLaunches />
+				{/* <Home />
+				<StatusBar style="auto" /> */}
+			</View>
+			<View style={styles.footer}></View>
+			</ApiProvider>
+	);
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
