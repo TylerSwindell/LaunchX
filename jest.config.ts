@@ -5,6 +5,7 @@ import { Config } from "@jest/types";
 // To overcome this, exclude these modules in the ignore pattern.
 const untranspiledModulePatterns = [
     "(jest-)?@react-native",
+    "expo-status-bar",
     "react-native", 
     "react-clone-referenced-element", 
     "@react-native-community", 
@@ -19,19 +20,19 @@ const untranspiledModulePatterns = [
 ];
 
 const config: Config.InitialOptions = {
-  preset: "jest-expo",
-  transformIgnorePatterns: [
-    `node_modules/(?!${untranspiledModulePatterns.join("|")})`,
-  ],
-  moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
-  collectCoverage: true,
-  collectCoverageFrom: [
-    "**/*.{js,jsx}",
-    "!**/coverage/**",
-    "!**/node_modules/**",
-    "!**/babel.config.js",
-    "!**/jest.setup.js"
-  ]
+	preset: "jest-expo",
+	transformIgnorePatterns: [
+		`node_modules/(?!${untranspiledModulePatterns.join("|")})`,
+	],
+	moduleFileExtensions: ["ts", "tsx", "js", "jsx"],
+	collectCoverage: true,
+	collectCoverageFrom: [
+		"**/*.{js,jsx}",
+		"!**/coverage/**",
+		"!**/node_modules/**",
+		"!**/babel.config.js",
+		"!**/jest.setup.js"
+	]
 };
 
 export default config;

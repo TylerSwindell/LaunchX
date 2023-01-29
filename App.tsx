@@ -15,13 +15,11 @@ export default function App() {
 
 	return (
 		<ApiProvider api={launchApi}>
-			<View style={styles.header}></View>
+			<Header />
 			<View style={styles.container}>
 				<UpcomingLaunches />
-				{/* <Home />
-				<StatusBar style="auto" /> */}
 			</View>
-			<View style={styles.footer}></View>
+			<Footer />
 			</ApiProvider>
 	);
 }

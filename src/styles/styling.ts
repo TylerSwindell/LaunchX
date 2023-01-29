@@ -18,7 +18,8 @@ export const styles = StyleSheet.create({
 		backgroundColor: 'black',
 	},
 	launchListContainer: {
-		maxWidth: 400
+		width: 350,
+		maxWidth: 350
 	},
 	listItems: {
 		backgroundColor: '#B1B1B1',
@@ -31,20 +32,39 @@ export const styles = StyleSheet.create({
 	},
 	itemName: {
 		fontWeight: 'bold',
-		color: 'white'
+		color: 'white',
+		fontSize: 20,
+		marginBottom: 5
 	},
 	itemDate: {
 
+	},
+	textHeader: {
+		fontWeight: 'bold',
+		fontSize: 20, 
+		marginTop: 'auto',
+		marginLeft: 'auto',
+		marginRight: 'auto',
+		marginBottom: 'auto',
 	}
 });
 
-
-function padding(top: number, right?: number, bottom?: number, left?: number) {
+export function padding(top: number, right?: number, bottom?: number, left?: number) {
 	console.log(top, right, bottom, left)
 	return {
 		paddingTop: top,
 		paddingRight: right === undefined || right === null ? 0 : right,
 		paddingBottom: bottom === undefined || bottom === null ? 0 : bottom,
 		paddingLeft: left === undefined || left === null ? 0 : left
+	}
+}
+
+export function margin(top: number, right?: number, bottom?: number, left?: number) {
+	console.log(top, right, bottom, left)
+	return {
+		marginTop: top,
+		marginRight: right === undefined || right === null ? 0 : right,
+		marginBottom: bottom === undefined || bottom === null ? 0 : bottom,
+		marginLeft: left === undefined || left === null ? 0 : left
 	}
 }

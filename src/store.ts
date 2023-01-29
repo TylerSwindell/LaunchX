@@ -2,8 +2,8 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
 
 export interface Launch {
     rocket: string,
-    name: string
-    flightNumber: number
+    name: string,
+    date_local: string
     // rocketName: string,
     // launchDateUnix: number,
     // localLaunchDate: Date,
