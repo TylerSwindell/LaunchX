@@ -50,7 +50,6 @@ export const styles = StyleSheet.create({
 });
 
 export function padding(top: number, right?: number, bottom?: number, left?: number) {
-	console.log(top, right, bottom, left)
 	return {
 		paddingTop: top,
 		paddingRight: right === undefined || right === null ? 0 : right,
@@ -60,7 +59,6 @@ export function padding(top: number, right?: number, bottom?: number, left?: num
 }
 
 export function margin(top: number, right?: number, bottom?: number, left?: number) {
-	console.log(top, right, bottom, left)
 	return {
 		marginTop: top,
 		marginRight: right === undefined || right === null ? 0 : right,

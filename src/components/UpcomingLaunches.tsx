@@ -1,10 +1,16 @@
 import { FlatList, Text, View, StyleSheet } from 'react-native'
-import { launchApi, Launch } from '../store'
+import { useSelector, useDispatch } from "react-redux";
+import { Store } from "../store/types";
+import { useGetUpcomingLaunchesQuery } from '../store/store'
 import {styles} from '../styles/styling'
+import { useEffect } from 'react';
 
-export default function UpcomingLaunches() {
-	
-	const { data: launches } = launchApi.useGetAllQuery()
+export default function UpcomingLaunches() {	
+	const { data: launches } = useGetUpcomingLaunchesQuery()
+
+	useEffect(()=>{
+		
+	}, [])
 
 	return (
 		<View>
