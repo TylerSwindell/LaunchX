@@ -1,8 +1,5 @@
-import { configureStore, applyMiddleware } from '@reduxjs/toolkit'
-
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { Launch, Store } from '../store/types'
-import { ActionTypes, SET_LAUNCHES } from "./actions";
+import { Launch } from '../redux/types'
 
 export const launchApi = createApi({
     reducerPath: "launchApi",

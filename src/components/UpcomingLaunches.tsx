@@ -1,16 +1,9 @@
 import { FlatList, Text, View, StyleSheet } from 'react-native'
-import { useSelector, useDispatch } from "react-redux";
-import { Store } from "../store/types";
-import { useGetUpcomingLaunchesQuery } from '../store/store'
+import { useGetUpcomingLaunchesQuery } from '../features/launchApi'
 import {styles} from '../styles/styling'
-import { useEffect } from 'react';
 
 export default function UpcomingLaunches() {	
 	const { data: launches } = useGetUpcomingLaunchesQuery()
-
-	useEffect(()=>{
-		
-	}, [])
 
 	return (
 		<View>
@@ -36,4 +29,3 @@ export default function UpcomingLaunches() {
 		</View>
 	)
 }
-
