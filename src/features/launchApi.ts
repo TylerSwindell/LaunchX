@@ -7,9 +7,9 @@ export const launchApi = createApi({
     tagTypes: ['Launches'],
     endpoints: (builder) => ({
         // Query Definitions
-        getAllLaunches: builder.query<Launch, void>({
+        getAllLaunches: builder.query<Launch[], void>({
             query: () => 'launches'}),
-        getUpcomingLaunches: builder.query<Launch, void>({
+        getUpcomingLaunches: builder.query<Launch[], void>({
             query: () => 'launches/upcoming'
         })
     }),
