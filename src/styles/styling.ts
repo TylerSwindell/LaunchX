@@ -2,23 +2,9 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
 	container: {
-		flex: 8,
-		backgroundColor: '#FFFFFF',
+		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
-	},
-	header: {
-		flex: 1,
-		justifyContent: 'center',
-		alignItems: 'center',
-		paddingTop: 15,
-		backgroundColor: '#fff',
-		borderBottomColor: '#1F1F1F',
-		borderBottomWidth: StyleSheet.hairlineWidth,
-	},
-	footer: {
-		flex: 1,
-		backgroundColor: 'black',
 	},
 	launchListContainer: {
 		width: 350,

@@ -30,8 +30,8 @@ export default function UpcomingLaunches() {
             </View>
 
 			<FlatList style={styles.launchListContainer} 
-			data={launches} 
-			renderItem={({item}) => (
+				data={launches} 
+				renderItem={({item}) => (
 				<Item item={item} />
 			)} />
 		</View>
