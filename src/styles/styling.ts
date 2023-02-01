@@ -5,14 +5,15 @@ export const styles = StyleSheet.create({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
+		backgroundColor: '#ggg'
 	},
 	launchListContainer: {
 		width: 350,
 		maxWidth: 350
 	},
 	listItems: {
-		backgroundColor: '#B1B1B1',
-		borderBottomColor: '#fff',
+		backgroundColor: '#525252',
+		borderBottomColor: '#555',
 		borderBottomWidth: StyleSheet.hairlineWidth,
 		borderRadius: 5,
 		marginTop: 2,
@@ -27,14 +28,6 @@ export const styles = StyleSheet.create({
 	},
 	itemDate: {
 
-	},
-	textHeader: {
-		fontWeight: 'bold',
-		fontSize: 20, 
-		marginTop: 'auto',
-		marginLeft: 'auto',
-		marginRight: 'auto',
-		marginBottom: 'auto',
 	}
 });
 

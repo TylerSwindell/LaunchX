@@ -29,6 +29,12 @@ While inside the project root folder run the start command npx
 $ npx expo start
 ```
 
+You can run the app through the metro bundler using a: android or i: iPhone.
+Be sure to setup the emulators:
+
+[Android Studio](https://docs.expo.dev/workflow/android-studio-emulator/)
+[iOS Simulator](https://docs.expo.dev/workflow/ios-simulator/)
+
 ### [Expo](https://docs.expo.dev/get-started/installation/)
 
 LaunchX utilizes Expo for it's React-Native build and configuration
