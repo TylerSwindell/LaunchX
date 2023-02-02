@@ -1,7 +1,7 @@
 import { ApiProvider } from '@reduxjs/toolkit/dist/query/react';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { launchApi } from './src/features/launchApi';
+import { launchApi } from './src/redux/api/launchApi';
 
 import useCachedResources from './src/hooks/useCachedResources';
 import useColorScheme from './src/hooks/useColorScheme';

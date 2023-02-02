@@ -1,5 +1,5 @@
 import { FlatList, Text, View, StyleSheet, Pressable } from 'react-native'
-import { useGetUpcomingLaunchesQuery } from '../features/launchApi'
+import { useGetUpcomingLaunchesQuery } from '../redux/api/launchApi'
 import {styles} from '../styles/styling'
 
 
