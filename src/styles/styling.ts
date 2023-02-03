@@ -20,8 +20,9 @@ export const styles = StyleSheet.create({
 		borderBottomColor: '#333',
 		overflow: 'hidden',
 		borderBottomWidth: StyleSheet.hairlineWidth,
-		borderRadius: 8,
-		...padding(20, 10, 20, 10)
+		borderRadius: 10,
+		...padding(20,10,10,10)
+		
 	},
 	listItem: {
 		height: Dimensions.get('window').height/8,
@@ -58,8 +59,18 @@ export const styles = StyleSheet.create({
 		...margin(10, 10, 10, 10)
 	},
 	itemCrew: {
-
+		
 	},
+	noCrew: {
+		fontWeight: 'bold',
+	},
+	crewList: {
+		height: 100,
+		backgroundColor: '#ddd',
+		...padding(10,10,10,10),
+		borderBottomStartRadius: 6,
+		borderBottomEndRadius: 6,
+	}
 });
 
 export function padding(top: number, right?: number, bottom?: number, left?: number) {

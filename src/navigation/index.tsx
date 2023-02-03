@@ -12,6 +12,7 @@ import { ColorSchemeName, Pressable } from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
+import FilterModalScreen from '../screens/FilterModalScreen';
 import AboutMeModalScreen from '../screens/AboutMeModalScreen';
 import FlightInfoModalScreen from '../screens/FlightInfoModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
@@ -43,6 +44,7 @@ function RootNavigator() {
 			<Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
 			<Stack.Group screenOptions={{ presentation: 'modal' }}>
 				<Stack.Screen name="AboutMeModal" options={{title:'About The Developer'}} component={AboutMeModalScreen} />
+				<Stack.Screen name="FilterModal" options={{title:'Filter Launches'}} component={FilterModalScreen} />
 				<Stack.Screen name="FlightInfoModal" options={{title:'Flight Info'}} component={FlightInfoModalScreen} />
 			</Stack.Group>
 		</Stack.Navigator>
@@ -58,13 +60,13 @@ const BottomTab = createBottomTabNavigator<RootTabParamList>();
 function BottomTabNavigator() {
 	const colorScheme = useColorScheme();
 
-	const AboutMeIcon = () => (
+	const FontAwesomeIcon = ({name, size}: {name:'filter'|'info-circle', size: number}) => (
 		<FontAwesome
-		name="info-circle"
-		size={25}
-		color={Colors[colorScheme].text}
-		style={{ marginRight: 15 }}
-	/>
+			name={name}
+			size={size}
+			color={Colors[colorScheme].text}
+			style={{ marginRight: 20, marginLeft: 20 }}
+		/>
 	)
 
 	return (
@@ -81,9 +83,15 @@ function BottomTabNavigator() {
 					title: 'Upcoming Flights',
 					tabBarIcon: ({ color }) => <AntDesign name="clockcircle" size={35} color={color} />,
 					headerRight: () => (
+						<Pressable onPress={() => navigation.navigate('FilterModal')}
+							style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}>
+							<FontAwesomeIcon name="filter" size={25} />
+						</Pressable>
+					),
+					headerLeft: () => (
 						<Pressable onPress={() => navigation.navigate('AboutMeModal')}
 							style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}>
-							<AboutMeIcon />
+							<FontAwesomeIcon name="info-circle" size={25} />
 						</Pressable>
 					)
 				})}
@@ -96,9 +104,15 @@ function BottomTabNavigator() {
 				title: 'All Flights',
 				tabBarIcon: ({ color }) => <Octicons name="feed-rocket" size={35} color={color}  style={{marginBottom: 0}}/>,
 				headerRight: () => (
+					<Pressable onPress={() => navigation.navigate('FilterModal')}
+						style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}>
+						<FontAwesomeIcon name="filter" size={25} />
+					</Pressable>
+				),
+				headerLeft: () => (
 					<Pressable onPress={() => navigation.navigate('AboutMeModal')}
 						style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}>
-						<AboutMeIcon />
+						<FontAwesomeIcon name="info-circle" size={25} />
 					</Pressable>
 				)
 			})}

@@ -30,6 +30,7 @@ const linking: LinkingOptions<RootStackParamList> = {
       },
       AboutMeModal: 'about-me-modal',
       FlightInfoModal: 'flight-info-modal',
+      FilterModal: 'filter-modal',
       NotFound: '*',
     },
   },

@@ -11,7 +11,7 @@ import { createIconSet } from '@expo/vector-icons'
 function Item (props: any) {
 	const { id, crew, name, flight_number, date_local, date_unix, links } = props.item
 
-	const crewList = (crew.length > 0) ? crew.map((crewMem:any, index:number) => <Text key={index}>{crewMem.role}</Text>) : <Text style={{...styles.listItem, ...styles.itemCrew}}>No Crew</Text>
+	const crewList = (crew.length > 0) ? crew.map((crewMem:any, index:number) => <Text key={index}>{crewMem.role}</Text>) : <Text style={{...styles.listItem, ...styles.noCrew}}>No Crew</Text>
 	
 	const date = new Date(date_unix*1000)
 
@@ -22,18 +22,23 @@ function Item (props: any) {
 		height: 100, 
 	}
 
+ 
 	return (
 		<View style={styles.listItems}> 
 			<Text style={{...styles.listItem, ...styles.itemName}}>{name}</Text>
-			<Text style={{...styles.listItem, ...styles.itemId}}>{id}</Text>
-			<Text style={{...styles.listItem, ...styles.itemDate}}>{date.toLocaleDateString("en-US")}</Text>
-			<Text style={{...styles.listItem, ...styles.itemNumber}}>Flight #{flight_number}</Text>
-			{crewList}
+	
+			<View style={styles.crewList}>
+				{crewList}
+				<Text style={{...styles.listItem, ...styles.itemId}}>{id}</Text>
+				<Text style={{...styles.listItem, ...styles.itemDate}}>{date.toLocaleDateString("en-US")}</Text>
+				<Text style={{...styles.listItem, ...styles.itemNumber}}>Flight #{flight_number}</Text>
+			</View>
 			<Image source={Image_Http_URL} style={{
 				position: 'absolute',
 				right: Dimensions.get('window').width/20,
 				top: Dimensions.get('window').height/12,
-				borderRadius: ((links.patch.small) ? 0 : '100%')
+				borderRadius: ((links.patch.small) ? 0 : '100%'),
+				
 			}} />
 
 		</View>
@@ -42,7 +47,6 @@ function Item (props: any) {
 
 export default function LaunchList(props: any) {
 	const {launchData, navigation} = props
-	const itemsPerPage = 5
 
 	return (
 		<View>
@@ -50,8 +54,9 @@ export default function LaunchList(props: any) {
 				!props.isLoading && launchData?.length > 0 
 				&& <FlatList data={launchData}
 				keyExtractor={launchData => launchData.id}
+				initialNumToRender={10}
 				renderItem={ ({item}) => {
-					if (item.crew?.length > 0) 
+					/* if (item.crew?.length === 0) return */
 					return (
 						<Pressable onPress={() => navigation.navigate('FlightInfoModal', {item: item})} 
 						style={({ pressed }) => ( { opacity: pressed ? 0.5 : 1 } && styles.launchListItem)}>

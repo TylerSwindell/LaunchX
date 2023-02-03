@@ -13,7 +13,13 @@ export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'
 
   useEffect( () => {
       try {
-          if (!isError && launches !== undefined) setLaunchData(launches)
+          if (!isError && launches !== undefined) {
+            let sortedLaunches: Launch[] = []
+            launches.forEach((launch) => sortedLaunches.push(launch))
+
+            sortedLaunches.sort((a,b) => (a.date_unix > b.date_unix) ? 1 : -1)
+            setLaunchData(sortedLaunches)
+          }
       } catch (err) { console.error(err) }
   }, [launches])
 
