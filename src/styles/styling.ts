@@ -17,29 +17,44 @@ export const styles = StyleSheet.create({
 	},
 	listItems: {
 		backgroundColor: '#fff',
-		borderBottomColor: '#555',
+		borderBottomColor: '#333',
+		overflow: 'hidden',
 		borderBottomWidth: StyleSheet.hairlineWidth,
-		borderRadius: 5,
+		borderRadius: 8,
 		...padding(20, 10, 20, 10)
+	},
+	listItem: {
+		height: Dimensions.get('window').height/8,
 	},
 	itemName: {
 		fontWeight: 'bold',
 		color: '#000',
 		fontSize: 20,
-		marginBottom: 5
+		marginBottom: 10
 	},
 	itemDate: {
-
+		fontSize: 11,
+		color: '#888',
+		position: 'absolute',
+		left: 0,
+		bottom:Dimensions.get('window').height/-9,
+		textAlign: 'right',
+		...margin(10, 10, 10, 10)
 	},
 	itemId: {
-
+		fontSize: 11,
+		color: '#888',
+		position: 'absolute',
+		right: Dimensions.get('window').width/4,
+		bottom:Dimensions.get('window').height/-9,
+		...margin(10, 10, 10, 10)
 	},
 	itemNumber: {
+		fontSize: 11,
 		color: '#888',
 		position: 'absolute',
 		right: 0,
-		bottom: 0,
-		textAlign: 'right',
+		bottom:Dimensions.get('window').height/-9,
 		...margin(10, 10, 10, 10)
 	},
 	itemCrew: {

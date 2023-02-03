@@ -3,11 +3,11 @@ export interface Launch {
     flight_number: number,
     rocket: string,
     name: string,
-    date_local: string
+    date_local: string,
     date_unix: number
+    crew: [],
     // launchDateUnix: number,
     // localLaunchDate: Date,
-    // crew: [],
 }
 
 export interface Store {
