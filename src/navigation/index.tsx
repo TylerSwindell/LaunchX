@@ -12,7 +12,8 @@ import { ColorSchemeName, Pressable } from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import ModalScreen from '../screens/ModalScreen';
+import AboutMeModalScreen from '../screens/AboutMeModalScreen';
+import FlightInfoModalScreen from '../screens/FlightInfoModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
@@ -41,7 +42,8 @@ function RootNavigator() {
 			<Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
 			<Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
 			<Stack.Group screenOptions={{ presentation: 'modal' }}>
-				<Stack.Screen name="Modal" component={ModalScreen} />
+				<Stack.Screen name="AboutMeModal" options={{title:'About The Developer'}} component={AboutMeModalScreen} />
+				<Stack.Screen name="FlightInfoModal" options={{title:'Flight Info'}} component={FlightInfoModalScreen} />
 			</Stack.Group>
 		</Stack.Navigator>
 	);
@@ -56,40 +58,51 @@ const BottomTab = createBottomTabNavigator<RootTabParamList>();
 function BottomTabNavigator() {
 	const colorScheme = useColorScheme();
 
+	const AboutMeIcon = () => (
+		<FontAwesome
+		name="info-circle"
+		size={25}
+		color={Colors[colorScheme].text}
+		style={{ marginRight: 15 }}
+	/>
+	)
+
 	return (
 		<BottomTab.Navigator
 			initialRouteName="TabOne"
 			screenOptions={{
 			tabBarActiveTintColor: Colors[colorScheme].tint,
+			tabBarShowLabel: false
 		}}>
+			<BottomTab.Screen
+				name="TabOne"
+				component={TabOneScreen}
+				options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
+					title: 'Upcoming Flights',
+					tabBarIcon: ({ color }) => <AntDesign name="clockcircle" size={35} color={color} />,
+					headerRight: () => (
+						<Pressable onPress={() => navigation.navigate('AboutMeModal')}
+							style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}>
+							<AboutMeIcon />
+						</Pressable>
+					)
+				})}
+			/>
 		<BottomTab.Screen
-			name="TabOne"
-			component={TabOneScreen}
+			name="TabTwo"
+			component={TabTwoScreen}
+
 			options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-			title: 'Upcoming Flights',
-			tabBarIcon: ({ color }) => <AntDesign name="clockcircle" size={25} color={color} />,
-			headerRight: () => (
-				<Pressable
-					onPress={() => navigation.navigate('Modal')}
-					style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}>
-				<FontAwesome
-					name="info-circle"
-					size={25}
-					color={Colors[colorScheme].text}
-					style={{ marginRight: 15 }}
-				/>
-            </Pressable>
-          ),
-        })}
-      />
-      <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoScreen}
-        options={{
-          title: 'All Flights',
-          tabBarIcon: ({ color }) => <Octicons name="feed-rocket" size={25} color={color}  style={{marginBottom: 0}}/>,
-        }}
-      />
+				title: 'All Flights',
+				tabBarIcon: ({ color }) => <Octicons name="feed-rocket" size={35} color={color}  style={{marginBottom: 0}}/>,
+				headerRight: () => (
+					<Pressable onPress={() => navigation.navigate('AboutMeModal')}
+						style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}>
+						<AboutMeIcon />
+					</Pressable>
+				)
+			})}
+		/>
     </BottomTab.Navigator>
   );
 }

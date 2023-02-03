@@ -1,34 +1,50 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 
 export const styles = StyleSheet.create({
 	container: {
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: '#ggg'
+		backgroundColor: '#ccc'
 	},
 	launchListContainer: {
-		width: 350,
-		maxWidth: 350
+		width: Dimensions.get('window').width,
+		height: Dimensions.get('window').height
+	},
+	launchListItem: {
+		width: Dimensions.get('window').width-20,
+		...margin(5, 10, 0, 10),
 	},
 	listItems: {
-		backgroundColor: '#525252',
+		backgroundColor: '#fff',
 		borderBottomColor: '#555',
 		borderBottomWidth: StyleSheet.hairlineWidth,
 		borderRadius: 5,
-		marginTop: 2,
-		marginBottom: 2,
 		...padding(20, 10, 20, 10)
 	},
 	itemName: {
 		fontWeight: 'bold',
-		color: 'white',
+		color: '#000',
 		fontSize: 20,
 		marginBottom: 5
 	},
 	itemDate: {
 
-	}
+	},
+	itemId: {
+
+	},
+	itemNumber: {
+		color: '#888',
+		position: 'absolute',
+		right: 0,
+		bottom: 0,
+		textAlign: 'right',
+		...margin(10, 10, 10, 10)
+	},
+	itemCrew: {
+
+	},
 });
 
 export function padding(top: number, right?: number, bottom?: number, left?: number) {

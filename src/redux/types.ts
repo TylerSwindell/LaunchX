@@ -1,8 +1,10 @@
 export interface Launch {
+    id: string,
+    flight_number: number,
     rocket: string,
     name: string,
     date_local: string
-    // rocketName: string,
+    date_unix: number
     // launchDateUnix: number,
     // localLaunchDate: Date,
     // crew: [],

@@ -14,6 +14,7 @@ const linking: LinkingOptions<RootStackParamList> = {
   config: {
     screens: {
       Root: {
+
         screens: {
           TabOne: {
             screens: {
@@ -27,7 +28,8 @@ const linking: LinkingOptions<RootStackParamList> = {
           },
         },
       },
-      Modal: 'modal',
+      AboutMeModal: 'about-me-modal',
+      FlightInfoModal: 'flight-info-modal',
       NotFound: '*',
     },
   },

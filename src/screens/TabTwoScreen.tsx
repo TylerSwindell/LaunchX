@@ -1,31 +1,29 @@
+import { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
+import { RootTabScreenProps } from '../../types';
+import LaunchList from '../components/LaunchList';
 
-import EditScreenInfo from '../components/EditScreenInfo'
-import { Text, View } from '../components/Themed'
+import { View } from '../components/Themed'
+import { useGetAllLaunchesQuery } from '../redux/api/launchApi';
+import { Launch } from '../redux/types';
+import { styles } from '../styles/styling';
 
-export default function TabTwoScreen() {
+export default function TabTwoScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
+  const [launchData, setLaunchData] = useState<Launch[]>([])
+  const { data: launches, isLoading, isError } = useGetAllLaunchesQuery()
+
+  useEffect( () => {
+      try {
+          if (!isError && launches !== undefined) 
+          setLaunchData(launches)
+          console.log(launchData)
+      } catch (err) { console.error(err) }
+  }, [launches])
+
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
+    <View style={styles.container}>      
+      <LaunchList launchData={launchData} navigation={navigation} />
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});

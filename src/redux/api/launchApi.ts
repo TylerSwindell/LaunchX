@@ -8,12 +8,13 @@ export const launchApi = createApi({
     endpoints: (builder) => ({
         // Query Definitions
         getAllLaunches: builder.query<Launch[], void>({
-            query: () => 'launches'}),
+            query: () => 'launches'
+        }),
         getUpcomingLaunches: builder.query<Launch[], void>({
             query: () => 'launches/upcoming'
         })
     }),
 })
 
-
+export default launchApi
 export const { useGetAllLaunchesQuery, useGetUpcomingLaunchesQuery } = launchApi
