@@ -33,29 +33,31 @@ export const styles = StyleSheet.create({
 		fontSize: 20,
 		marginBottom: 10
 	},
-	itemDate: {
-		fontSize: 11,
-		color: '#888',
-		position: 'absolute',
-		left: 0,
-		bottom:Dimensions.get('window').height/-9,
-		textAlign: 'right',
-		...margin(10, 10, 10, 10)
-	},
 	itemId: {
 		fontSize: 11,
-		color: '#888',
+		color: 'white',
 		position: 'absolute',
-		right: Dimensions.get('window').width/4,
+		right: 0,
 		bottom:Dimensions.get('window').height/-9,
+		...margin(10, 10, 10, 10)
+	},
+	itemDate: {
+		fontSize: 11,
+		color: 'white',
+		fontWeight: 'bold',
+		position: 'absolute',
+		right: 0,
+		bottom:Dimensions.get('window').height/-11,
+		textAlign: 'right',
 		...margin(10, 10, 10, 10)
 	},
 	itemNumber: {
 		fontSize: 11,
-		color: '#888',
+		color: 'white',
+		fontWeight: 'bold',
 		position: 'absolute',
 		right: 0,
-		bottom:Dimensions.get('window').height/-9,
+		bottom:Dimensions.get('window').height/-14,
 		...margin(10, 10, 10, 10)
 	},
 	itemCrew: {
@@ -64,9 +66,9 @@ export const styles = StyleSheet.create({
 	noCrew: {
 		fontWeight: 'bold',
 	},
-	crewList: {
+	lowerCard: {
 		height: 100,
-		backgroundColor: '#ddd',
+		backgroundColor: '#999',
 		...padding(10,10,10,10),
 		borderBottomStartRadius: 6,
 		borderBottomEndRadius: 6,

@@ -11,8 +11,12 @@ import { createIconSet } from '@expo/vector-icons'
 function Item (props: any) {
 	const { id, crew, name, flight_number, date_local, date_unix, links } = props.item
 
-	const crewList = (crew.length > 0) ? crew.map((crewMem:any, index:number) => <Text key={index}>{crewMem.role}</Text>) : <Text style={{...styles.listItem, ...styles.noCrew}}>No Crew</Text>
-	
+	const crewList = (
+		(crew.length > 0) 
+			? crew.map((crewMem:any, index:number) => <Text key={index}>{crewMem.role}</Text>) 
+			: <Text style={{...styles.listItem, ...styles.noCrew}}>No Crew</Text>
+		)
+		
 	const date = new Date(date_unix*1000)
 
 	let Image_Http_URL = { 
@@ -21,13 +25,12 @@ function Item (props: any) {
 		width: 100, 
 		height: 100, 
 	}
-
  
 	return (
 		<View style={styles.listItems}> 
 			<Text style={{...styles.listItem, ...styles.itemName}}>{name}</Text>
 	
-			<View style={styles.crewList}>
+			<View style={styles.lowerCard}>
 				{crewList}
 				<Text style={{...styles.listItem, ...styles.itemId}}>{id}</Text>
 				<Text style={{...styles.listItem, ...styles.itemDate}}>{date.toLocaleDateString("en-US")}</Text>
@@ -54,9 +57,9 @@ export default function LaunchList(props: any) {
 				!props.isLoading && launchData?.length > 0 
 				&& <FlatList data={launchData}
 				keyExtractor={launchData => launchData.id}
-				initialNumToRender={10}
+				initialNumToRender={100}
 				renderItem={ ({item}) => {
-					/* if (item.crew?.length === 0) return */
+					if (item.crew?.length === 0) return
 					return (
 						<Pressable onPress={() => navigation.navigate('FlightInfoModal', {item: item})} 
 						style={({ pressed }) => ( { opacity: pressed ? 0.5 : 1 } && styles.launchListItem)}>
