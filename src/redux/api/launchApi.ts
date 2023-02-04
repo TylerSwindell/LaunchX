@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react"
-import { Launch } from '../types'
+import { FlightInformation } from "../../../types"
 
 export const launchApi = createApi({
     reducerPath: "launchApi",
@@ -7,10 +7,10 @@ export const launchApi = createApi({
     tagTypes: ['Launches'],
     endpoints: (builder) => ({
         // Query Definitions
-        getAllLaunches: builder.query<Launch[], void>({
+        getAllLaunches: builder.query<FlightInformation[], void>({
             query: () => 'launches'
         }),
-        getUpcomingLaunches: builder.query<Launch[], void>({
+        getUpcomingLaunches: builder.query<FlightInformation[], void>({
             query: () => 'launches/upcoming'
         })
     }),

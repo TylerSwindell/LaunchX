@@ -35,3 +35,21 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> = Composit
   BottomTabScreenProps<RootTabParamList, Screen>,
   NativeStackScreenProps<RootStackParamList>
 >;
+
+export interface RocketStatus {
+	reused: boolean | null, 
+	recoveryAttempt: boolean | null, 
+	recovered: boolean | null
+};
+
+export interface FlightInformation {
+	name: string,
+	id: string,
+  number: number,
+	dateLocal: string,
+	webcast: string,
+  missionDetails: string,
+	rocketStatus: RocketStatus
+  patch: string | null
+  crew: string[]
+};

@@ -5,22 +5,36 @@ import { Launch } from '../redux/types'
 import {styles} from '../styles/styling'
 import Filter from './Filter'
 import { createIconSet } from '@expo/vector-icons'
+import { FlightInformation } from '../../types'
 
 
+interface ItemProps {
+	key: number,
+	item: FlightInformation
+};
 
-function Item (props: any) {
-	const { id, crew, name, flight_number, date_local, date_unix, links } = props.item
+function Item (itemProps: ItemProps) {
+	const { 
+		id, crew, name, number, 
+		dateLocal, patch 
+	} = itemProps.item
 
 	const crewList = (
-		(crew.length > 0) 
-			? crew.map((crewMem:any, index:number) => <Text key={index}>{crewMem.role}</Text>) 
-			: <Text style={{...styles.listItem, ...styles.noCrew}}>No Crew</Text>
+		(crew?.length > 0) 
+			? crew.map((crewMem:any, index:number) => {
+				switch (index) {
+					case 0: case 1: case 2: case 3: 
+						return <Text key={index}>{crewMem.role}</Text>
+					case 4:
+						return <Text key={index}>...</Text>
+					default: return
+				}
+			}) : <Text style={{...styles.listItem, ...styles.noCrew}}>No Crew</Text>
 		)
 		
-	const date = new Date(date_unix*1000)
 
 	let Image_Http_URL = { 
-		uri: links.patch.small || 'https://pbs.twimg.com/profile_images/1082744382585856001/rH_k3PtQ_400x400.jpg', 
+		uri: patch || 'https://pbs.twimg.com/profile_images/1082744382585856001/rH_k3PtQ_400x400.jpg', 
 		resizeMode : 'stretch',
 		width: 100, 
 		height: 100, 
@@ -33,14 +47,14 @@ function Item (props: any) {
 			<View style={styles.lowerCard}>
 				{crewList}
 				<Text style={{...styles.listItem, ...styles.itemId}}>{id}</Text>
-				<Text style={{...styles.listItem, ...styles.itemDate}}>{date.toLocaleDateString("en-US")}</Text>
-				<Text style={{...styles.listItem, ...styles.itemNumber}}>Flight #{flight_number}</Text>
+				<Text style={{...styles.listItem, ...styles.itemDate}}>{dateLocal}</Text>
+				<Text style={{...styles.listItem, ...styles.itemNumber}}>Flight #{number}</Text> 
 			</View>
 			<Image source={Image_Http_URL} style={{
 				position: 'absolute',
 				right: Dimensions.get('window').width/20,
 				top: Dimensions.get('window').height/12,
-				borderRadius: ((links.patch.small) ? 0 : '100%'),
+				borderRadius: ((patch) ? 0 : '100%'),
 				
 			}} />
 
@@ -49,21 +63,20 @@ function Item (props: any) {
 }
 
 export default function LaunchList(props: any) {
-	const {launchData, navigation} = props
+	const {flightInfo, navigation} = props
 
 	return (
 		<View>
 			{ 
-				!props.isLoading && launchData?.length > 0 
-				&& <FlatList data={launchData}
-				keyExtractor={launchData => launchData.id}
+				!props.isLoading && flightInfo?.length > 0 
+				&& <FlatList data={flightInfo}
 				initialNumToRender={100}
-				renderItem={ ({item}) => {
-					if (item.crew?.length === 0) return
+				renderItem={ ({item, index}) => {
+					if (item.crew.length === 0) return
 					return (
-						<Pressable onPress={() => navigation.navigate('FlightInfoModal', {item: item})} 
+						<Pressable onPress={() => navigation.navigate('FlightInfoModal', {flightInfo: item})} 
 						style={({ pressed }) => ( { opacity: pressed ? 0.5 : 1 } && styles.launchListItem)}>
-							<Item key={item.id} item={item} />
+							<Item key={index} item={item} />
 						</Pressable>
 					)
 				}

@@ -72,7 +72,7 @@ export const styles = StyleSheet.create({
 		...padding(10,10,10,10),
 		borderBottomStartRadius: 6,
 		borderBottomEndRadius: 6,
-	}
+	},
 });
 
 export function padding(top: number, right?: number, bottom?: number, left?: number) {

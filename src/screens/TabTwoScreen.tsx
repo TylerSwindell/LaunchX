@@ -1,29 +1,46 @@
+import { CommonActions } from '@react-navigation/native';
+import { createListenerMiddleware } from '@reduxjs/toolkit';
 import { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
-import { RootTabScreenProps } from '../../types';
+import { FlightInformation, RocketStatus, RootTabScreenProps } from '../../types';
 import LaunchList from '../components/LaunchList';
 
 import { View } from '../components/Themed'
 import { useGetAllLaunchesQuery } from '../redux/api/launchApi';
-import { Launch } from '../redux/types';
 import { styles } from '../styles/styling';
 
 export default function TabTwoScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
-  const [launchData, setLaunchData] = useState<Launch[]>([])
+  const [flightInfo, setFlightInfo] = useState<FlightInformation[]>([])
   const { data: launches, isLoading, isError } = useGetAllLaunchesQuery()
 
   useEffect( () => {
-      try {
-          if (!isError && launches !== undefined) 
-          setLaunchData(launches)
-          console.log(launchData)
-      } catch (err) { console.error(err) }
+	try {
+		if (!isError && launches !== undefined) {
+			let flightInfoList: FlightInformation[] = launches.map((flight: any) => ({
+				name: flight.name, 
+				id: flight.id, 
+				number: flight.flight_number,
+				dateLocal: new Date(flight.date_unix*1000).toLocaleDateString('en-US'), 
+				webcast: flight.links?.webcast,
+				missionDetails: flight?.details,
+				rocketStatus: {
+					reused: flight.fairings?.reused,
+					recoveryAttempt: flight.fairings?.recovery_attempt,
+					recovered: flight.fairings?.recovered
+				} as RocketStatus,
+				patch: flight.links?.patch.small,
+				crew: flight?.crew
+			})
+		)
+		setFlightInfo(flightInfoList)
+		}
+	} catch (err) { console.error(err) }
   }, [launches])
 
 
   return (
     <View style={styles.container}>      
-      <LaunchList launchData={launchData} navigation={navigation} />
+    	<LaunchList flightInfo={flightInfo} navigation={navigation} />
     </View>
   );
 }
