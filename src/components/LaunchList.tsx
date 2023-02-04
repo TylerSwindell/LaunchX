@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { FlatList, Text, View, Pressable, Image, Dimensions } from 'react-native'
+import { FlatList, Text, View, Pressable, Image, Dimensions, TabBarIOSItem } from 'react-native'
 import { Launch } from '../redux/types'
 import {styles} from '../styles/styling'
 import Filter from './Filter'
 import { createIconSet } from '@expo/vector-icons'
 import { FlightInformation } from '../../types'
+import { copyWithStructuralSharing } from '@reduxjs/toolkit/dist/query'
 
 
 interface ItemProps {
@@ -73,6 +74,7 @@ export default function LaunchList(props: any) {
 				initialNumToRender={100}
 				renderItem={ ({item, index}) => {
 					if (item.crew.length === 0) return
+
 					return (
 						<Pressable onPress={() => navigation.navigate('FlightInfoModal', {flightInfo: item})} 
 						style={({ pressed }) => ( { opacity: pressed ? 0.5 : 1 } && styles.launchListItem)}>
