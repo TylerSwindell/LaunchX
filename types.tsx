@@ -6,6 +6,7 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { useWindowDimensions } from 'react-native';
 
 declare global {
   namespace ReactNavigation {
@@ -52,4 +53,18 @@ export interface FlightInformation {
 	rocketStatus: RocketStatus
   patch: string | null
   crew: string[]
+};
+
+// Enums
+export enum FlightInfoSections{ DETAILS = "DETAILS", CREW = "CREW", ROCKET = "ROCKET" }
+
+// Props
+export interface FlightInfoProps { flightInfo: FlightInformation };
+export interface FlightInfoSectionProps {
+	visiblityState: {
+		visibleSection: FlightInfoSections,
+		setVisibleSection: React.Dispatch<React.SetStateAction<FlightInfoSections>>
+	}, 
+	sectionName: FlightInfoSections,
+	flightInfo: FlightInformation
 };

@@ -20,13 +20,13 @@ export default function TabTwoScreen({ navigation }: RootTabScreenProps<'TabOne'
 				name: flight.name, 
 				id: flight.id, 
 				number: flight.flight_number,
-				dateLocal: new Date(flight.date_unix*1000).toLocaleDateString('en-US'), 
+				dateLocal: new Date(flight.date_unix*1000).toLocaleDateString(), 
 				webcast: flight.links?.webcast,
-				missionDetails: flight?.details,
+				missionDetails: flight.details ?? 'No Mission Details Recorded.',
 				rocketStatus: {
-					reused: flight.fairings?.reused,
-					recoveryAttempt: flight.fairings?.recovery_attempt,
-					recovered: flight.fairings?.recovered
+					reused: flight.fairings?.reused ?? undefined,
+					recoveryAttempt: flight.fairings?.recovery_attempt ?? undefined,
+					recovered: flight.fairings?.recovered ?? undefined
 				} as RocketStatus,
 				patch: flight.links?.patch.small,
 				crew: flight?.crew
