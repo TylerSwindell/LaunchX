@@ -20,8 +20,41 @@ import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../../types';
 import LinkingConfiguration from './LinkingConfiguration';
+import { FlightInformation, RocketStatus } from '../../types';
+import { useEffect, useState } from 'react';
+import { setFlightList } from '../redux/slices/flightListSlice';
+import { useGetAllLaunchesQuery } from '../redux/api/launchApi';
+import { useDispatch } from 'react-redux';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
+	const dispatch = useDispatch()
+	const { data: launches, isLoading, isError } = useGetAllLaunchesQuery()
+
+	// TODO: Move this to it's own file
+	useEffect( () => {
+	  try {
+		  if (!isError && launches !== undefined) {
+			  let flightInfoList: FlightInformation[] = launches.map((flight: any) => ({
+				  name: flight.name, 
+				  id: flight.id, 
+				  number: flight.flight_number,
+				  dateLocal: new Date(flight.date_unix*1000).toLocaleDateString(), 
+				  webcast: flight.links?.webcast,
+				  missionDetails: flight.details ?? 'No Mission Details Recorded.',
+				  rocketStatus: {
+					  reused: flight.fairings?.reused ?? undefined,
+					  recoveryAttempt: flight.fairings?.recovery_attempt ?? undefined,
+					  recovered: flight.fairings?.recovered ?? undefined
+				  } as RocketStatus,
+				  patch: flight.links?.patch.small,
+				  crew: flight?.crew
+			  })
+		  )
+		  dispatch(setFlightList(flightInfoList))
+		  }
+	  } catch (err) { console.error(err) }
+	}, [launches])
+
 	return (
 		<NavigationContainer
 		linking={LinkingConfiguration}

@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import launchApi from "./api/launchApi";
-import filterSlice from "./slices/filterSlice";
+import flightListSlice from "./slices/flightListSlice";
 
-configureStore({
+export default configureStore({
     reducer: {
-        filterSlice: filterSlice.reducer,
+        [flightListSlice.name]: flightListSlice.reducer,
         [launchApi.reducerPath]: launchApi.reducer,
     },
     middleware: getDefaultMiddleware =>

@@ -1,11 +1,13 @@
 import { ApiProvider } from '@reduxjs/toolkit/dist/query/react';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { launchApi } from './src/redux/api/launchApi';
+import { useGetUpcomingLaunchesQuery } from './src/redux/api/launchApi';
+import store from './src/redux/store'
 
 import useCachedResources from './src/hooks/useCachedResources';
 import useColorScheme from './src/hooks/useColorScheme';
 import Navigation from './src/navigation';
+import { Provider } from 'react-redux';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -15,12 +17,12 @@ export default function App() {
     return null;
   } else {
     return (
-      <ApiProvider api={launchApi}>
+      <Provider store={store}>
         <SafeAreaProvider>
           <Navigation colorScheme={colorScheme} />
           <StatusBar />
         </SafeAreaProvider>
-      </ApiProvider>
+      </Provider>
     );
   }
 }
