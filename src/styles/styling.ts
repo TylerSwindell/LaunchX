@@ -5,7 +5,7 @@ export const styles = StyleSheet.create({
 		display: 'flex',
 		alignItems: 'center',
 		justifyContent: 'center',
-		backgroundColor: '#ccc'
+		backgroundColor: '#999'
 	},
 	launchListContainer: {
 		width: Dimensions.get('window').width,
@@ -13,10 +13,10 @@ export const styles = StyleSheet.create({
 	},
 	launchListItem: {
 		width: Dimensions.get('window').width-20,
-		...margin(5, 10, 0, 10),
+		...margin({top: 5, right: 10, bottom: 0, left: 10}),
 	},
 	listItems: {
-		backgroundColor: '#fff',
+		backgroundColor: '#eee',
 		borderBottomColor: '#333',
 		overflow: 'hidden',
 		borderBottomWidth: StyleSheet.hairlineWidth,
@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
 		position: 'absolute',
 		right: 0,
 		bottom:Dimensions.get('window').height/-9,
-		...margin(10, 10, 10, 10)
+		...margin({ all: 10 })
 	},
 	itemDate: {
 		fontSize: 11,
@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
 		right: 0,
 		bottom:Dimensions.get('window').height/-11,
 		textAlign: 'right',
-		...margin(10, 10, 10, 10)
+		...margin({top: 10, right: 10, bottom: 10, left: 10})
 	},
 	itemNumber: {
 		fontSize: 11,
@@ -58,7 +58,7 @@ export const styles = StyleSheet.create({
 		position: 'absolute',
 		right: 0,
 		bottom:Dimensions.get('window').height/-14,
-		...margin(10, 10, 10, 10)
+		...margin({ all: 10 })
 	},
 	itemCrew: {
 		
@@ -75,6 +75,14 @@ export const styles = StyleSheet.create({
 	},
 });
 
+interface sides {
+	all?: number,
+	top?: number,
+	right?: number,
+	bottom?: number,
+	left?: number,
+};
+
 export function padding(top: number, right?: number, bottom?: number, left?: number) {
 	return {
 		paddingTop: top,
@@ -84,7 +92,13 @@ export function padding(top: number, right?: number, bottom?: number, left?: num
 	}
 }
 
-export function margin(top: number, right?: number, bottom?: number, left?: number) {
+export function margin(marginSides: sides) {
+	const {all, top, right, bottom, left} = marginSides
+	
+	console.log(marginSides)
+
+	if ('all' in marginSides) return { marginTop: all, marginRight: all, marginBottom: all, marginLeft: all }
+
 	return {
 		marginTop: top,
 		marginRight: right === undefined || right === null ? 0 : right,

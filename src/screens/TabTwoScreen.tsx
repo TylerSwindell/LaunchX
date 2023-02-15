@@ -1,16 +1,15 @@
-import { useSelector } from 'react-redux';
 import { RootTabScreenProps } from '../../types';
-import LaunchList from '../components/LaunchList';
 
 import { View } from '../components/Themed'
+import {SafeAreaView} from 'react-native'
 import { styles } from '../styles/styling';
+import AboutMe from '../components/AboutMe';
 
 export default function TabTwoScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
-	const flightListState = useSelector(state => state.flightList)
 
   return (
-    <View style={styles.container}>      
-    	<LaunchList flightInfo={flightListState} navigation={navigation} />
-    </View>
+    <SafeAreaView style={{...styles.container}}>      
+    	<AboutMe />
+    </SafeAreaView>
   )
 }

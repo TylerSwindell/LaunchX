@@ -8,11 +8,14 @@ const flightListSlice = createSlice({
     initialState,
     reducers: {
         setFlightList: (state, action) => state = action.payload,
+        sortFlightList: (state) => {
+            state.sort((a, b) => (a.dateUnix > b.dateUnix) ? -1 : 1)
+        },
         getFlightList: (state) => state,
         resetFlightList: (state) => state = <FlightInformation[]>[]
     }
 })
 
-export const {setFlightList, getFlightList, resetFlightList} = flightListSlice.actions
+export const {setFlightList, getFlightList, resetFlightList, sortFlightList} = flightListSlice.actions
 
 export default flightListSlice

@@ -3,7 +3,7 @@
  * https://reactnavigation.org/docs/getting-started
  *
  */
-import { FontAwesome, Octicons, AntDesign } from '@expo/vector-icons';
+import { FontAwesome, Octicons, AntDesign, Entypo } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer, DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -13,7 +13,6 @@ import { ColorSchemeName, Pressable } from 'react-native';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 import FilterModalScreen from '../screens/FilterModalScreen';
-import AboutMeModalScreen from '../screens/AboutMeModalScreen';
 import FlightInfoModalScreen from '../screens/FlightInfoModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import TabOneScreen from '../screens/TabOneScreen';
@@ -21,8 +20,8 @@ import TabTwoScreen from '../screens/TabTwoScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../../types';
 import LinkingConfiguration from './LinkingConfiguration';
 import { FlightInformation, RocketStatus } from '../../types';
-import { useEffect, useState } from 'react';
-import { setFlightList } from '../redux/slices/flightListSlice';
+import { useEffect } from 'react';
+import { setFlightList, sortFlightList } from '../redux/slices/flightListSlice';
 import { useGetAllLaunchesQuery } from '../redux/api/launchApi';
 import { useDispatch } from 'react-redux';
 
@@ -39,6 +38,7 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 				  id: flight.id, 
 				  number: flight.flight_number,
 				  dateLocal: new Date(flight.date_unix*1000).toLocaleDateString(), 
+				  dateUnix: flight.date_unix,
 				  webcast: flight.links?.webcast,
 				  missionDetails: flight.details ?? 'No Mission Details Recorded.',
 				  rocketStatus: {
@@ -51,6 +51,7 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 			  })
 		  )
 		  dispatch(setFlightList(flightInfoList))
+		  dispatch(sortFlightList())
 		  }
 	  } catch (err) { console.error(err) }
 	}, [launches])
@@ -76,7 +77,6 @@ function RootNavigator() {
 			<Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
 			<Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
 			<Stack.Group screenOptions={{ presentation: 'modal' }}>
-				<Stack.Screen name="AboutMeModal" options={{title:'About The Developer'}} component={AboutMeModalScreen} />
 				<Stack.Screen name="FilterModal" options={{title:'Filter Launches'}} component={FilterModalScreen} />
 				<Stack.Screen name="FlightInfoModal" options={{title:'Flight Info'}} component={FlightInfoModalScreen} />
 			</Stack.Group>
@@ -93,18 +93,9 @@ const BottomTab = createBottomTabNavigator<RootTabParamList>();
 function BottomTabNavigator() {
 	const colorScheme = useColorScheme();
 
-	const FontAwesomeIcon = ({name, size}: {name:'filter'|'info-circle', size: number}) => (
-		<FontAwesome
-			name={name}
-			size={size}
-			color={Colors[colorScheme].text}
-			style={{ marginRight: 20, marginLeft: 20 }}
-		/>
-	)
-
 	return (
 		<BottomTab.Navigator
-			initialRouteName="TabOne"
+			initialRouteName="TabTwo"
 			screenOptions={{
 			tabBarActiveTintColor: Colors[colorScheme].tint,
 			tabBarShowLabel: false
@@ -114,19 +105,13 @@ function BottomTabNavigator() {
 				component={TabOneScreen}
 				options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
 					title: 'Upcoming Flights',
-					tabBarIcon: ({ color }) => <AntDesign name="clockcircle" size={35} color={color} />,
-					headerRight: () => (
-						<Pressable onPress={() => navigation.navigate('FilterModal')}
-							style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}>
-							<FontAwesomeIcon name="filter" size={25} />
-						</Pressable>
-					),
-					headerLeft: () => (
-						<Pressable onPress={() => navigation.navigate('AboutMeModal')}
-							style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}>
-							<FontAwesomeIcon name="info-circle" size={25} />
-						</Pressable>
-					)
+					tabBarIcon: ({ color }) => <Octicons name="feed-rocket" size={35} color={color}  style={{marginBottom: 0}}/>,
+					// headerRight: () => (
+					// 	<Pressable onPress={() => navigation.navigate('FilterModal')}
+					// 		style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}>
+					// 		<FontAwesomeIcon name="filter" size={25} />
+					// 	</Pressable>
+					// )
 				})}
 			/>
 		<BottomTab.Screen
@@ -134,20 +119,14 @@ function BottomTabNavigator() {
 			component={TabTwoScreen}
 
 			options={({ navigation }: RootTabScreenProps<'TabOne'>) => ({
-				title: 'All Flights',
-				tabBarIcon: ({ color }) => <Octicons name="feed-rocket" size={35} color={color}  style={{marginBottom: 0}}/>,
-				headerRight: () => (
-					<Pressable onPress={() => navigation.navigate('FilterModal')}
-						style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}>
-						<FontAwesomeIcon name="filter" size={25} />
-					</Pressable>
-				),
-				headerLeft: () => (
-					<Pressable onPress={() => navigation.navigate('AboutMeModal')}
-						style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}>
-						<FontAwesomeIcon name="info-circle" size={25} />
-					</Pressable>
-				)
+				title: 'About the Developer',
+				tabBarIcon: ({ color }) => <Entypo name="info-with-circle" size={35} color={color} />,
+				// headerRight: () => (
+				// 	<Pressable onPress={() => navigation.navigate('FilterModal')}
+				// 		style={({ pressed }) => ({ opacity: pressed ? 0.5 : 1 })}>
+				// 		<FontAwesomeIcon name="filter" size={25} />
+				// 	</Pressable>
+				// )
 			})}
 		/>
     </BottomTab.Navigator>

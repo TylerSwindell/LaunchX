@@ -1,24 +1,27 @@
 import React from 'react'
-import { StyleSheet} from 'react-native'
-import { Text, View } from '../components/Themed'
+import { Dimensions, StyleSheet, Text, View} from 'react-native'
+import { margin } from '../styles/styling'
 
 export default function AboutMe() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Tyler Swindell</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <Text>AboutMe</Text>
+      <View style={styles.separator} />
       
     </View>
   )
 }
 
 const styles = StyleSheet.create({
+  empty :{},
   container: {
-    flex: 1,
+    display: 'flex',
     justifyContent: 'flex-start',
-    alignItems: 'center'
-
+    alignItems: 'center',
+    backgroundColor: '#eee',
+    height: '100%',
+    width: '100%',
+    marginTop: 10
   },
   title: {
     fontSize: 20,

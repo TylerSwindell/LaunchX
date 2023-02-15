@@ -48,6 +48,7 @@ export interface FlightInformation {
 	id: string,
   number: number,
 	dateLocal: string,
+  dateUnix: number,
 	webcast: string,
   missionDetails: string,
 	rocketStatus: RocketStatus
