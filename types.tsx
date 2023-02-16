@@ -54,6 +54,7 @@ export interface FlightInformation {
   missionDetails: string,
 	rocketStatus: RocketStatus
   patch: {
+    default: boolean,
     uri: string,
     size: {
       width: number,
@@ -61,7 +62,7 @@ export interface FlightInformation {
     }
   },
   crew: string[],
-  crewList: ReactNode
+  crewListEle: ReactNode
 };
 
 
