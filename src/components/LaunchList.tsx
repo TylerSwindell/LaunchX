@@ -1,8 +1,11 @@
-import { FlatList, Text, View, Pressable, Image, Dimensions } from 'react-native'
+import { FlatList, Text, View, Pressable, Image } from 'react-native'
 import {styles} from '../styles/styling'
 import { FlightInformation } from '../../types'
-import { useSelector } from 'react-redux'
-import flightListSlice from '../redux/slices/flightListSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { useEffect, useState } from 'react'
+import { useGetAllLaunchesQuery } from '../redux/api/launchApi'
+import store from '../redux/store'
+import { updateFlightList } from '../redux/slices/flightListSlice'
 
 
 interface ItemProps {
@@ -12,23 +15,9 @@ interface ItemProps {
 
 function Item (itemProps: ItemProps) {
 	const { 
-		id, crew, name, number, 
-		dateLocal, patch, crewListEle
+		id, crewList, name, number, 
+		dateLocal, patch
 	} = itemProps.item
-
-	const crewList = (
-		(crew?.length > 0) 
-			? crew.map((crewMem:any, index:number) => {
-				switch (index) {
-					case 0: case 1: case 2: case 3: 
-						return <Text key={index}>{crewMem.role}</Text>
-					case 4:
-						return <Text key={index}>...</Text>
-					default: return
-				}
-			}) : <Text style={{...styles.listItem, ...styles.noCrew}}>No Crew</Text>
-		)
-		
 
 	let Image_Http_URL = { 
 		uri: patch.uri, 
@@ -41,18 +30,19 @@ function Item (itemProps: ItemProps) {
 			<Text style={{...styles.listItem, ...styles.itemName}}>{name}</Text>
 	
 			<View style={styles.lowerCard}>
-				{crewListEle}
+				<Text style={{...styles.listItem, ...styles.noCrew}}>{crewList}</Text>
 				<Text style={{...styles.listItem, ...styles.itemId}}>{id}</Text>
 				<Text style={{...styles.listItem, ...styles.itemDate}}>{dateLocal}</Text>
 				<Text style={{...styles.listItem, ...styles.itemNumber}}>Flight #{number}</Text> 
 			</View>
-			<Image source={Image_Http_URL} style={{
-				position: 'absolute',
-				right: 0,
-				top: 0,
-				borderRadius: ((patch.default) ? '100%' : 0),
-				
-			}} />
+			<Image source={Image_Http_URL} 
+				style={{
+					position: 'absolute',
+					right: 8,
+					top: 50,
+					borderRadius: ((patch.default) ? '100%' : 0),
+				}} 
+			/>
 
 		</View>
 	)
@@ -60,7 +50,19 @@ function Item (itemProps: ItemProps) {
 
 export default function LaunchList(props: any) {
 	const {navigation} = props
-	const flightList = useSelector((state) => state.flightList)
+	
+	const { data: launches, isLoading, isError } = useGetAllLaunchesQuery()
+	const flightList = useSelector((state:any) => state.flightList.list)
+	
+	const dispatch = useDispatch()
+	
+	useEffect(() => { 
+		dispatch(updateFlightList({launches, isError})) 
+	}, [launches])
+
+	store.subscribe(() => { 
+		console.log('Store Updated') 
+	})
 
 	return (
 		<View>

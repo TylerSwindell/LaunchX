@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { Platform, StyleSheet, Image, Dimensions, useWindowDimensions } from 'react-native';
-import { FlightInformation } from '../../types';
+import { FlightInformation, ImageSource } from '../../types';
 
 import { View } from '../components/Themed'
 import { padding } from '../styles/styling';
@@ -14,18 +14,10 @@ export default function FlightInfoModalScreen(props:any) {
 	const flightInfo = props.route.params.flightInfo as FlightInformation
 	const { patch } = flightInfo
 
-	interface ImageSource {
-		uri: string, 
-		resizeMode: string,
-		width: number,
-		height: number
-	};
-
 	interface ImageSize { width: number, height: number };
 
 	let cardBackground: ImageSource = {
 		uri: 'https://render.fineartamerica.com/images/images-profile-flow/400/images/artworkimages/mediumlarge/3/into-the-stars-2-ai-artisan.jpg',
-		resizeMode: 'stretch',
 		width: Dimensions.get('window').width,
 		height: Dimensions.get('window').height/2
 	}
@@ -40,8 +32,7 @@ export default function FlightInfoModalScreen(props:any) {
 	//const {width: windowWidth, height: windowHeight, scale: windowScale, fontScale} = useWindowDimensions()
 	
 	let patchImage: ImageSource = { 
-		uri: patch || spaceXTwitterPFP, 
-		resizeMode : 'stretch',
+		uri: patch.uri || spaceXTwitterPFP, 
 		width: 0,
 		height: 0
 	}

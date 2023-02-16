@@ -20,76 +20,7 @@ import TabTwoScreen from '../screens/TabTwoScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps } from '../../types';
 import LinkingConfiguration from './LinkingConfiguration';
 
-import { FlightInformation, RocketStatus } from '../../types';
-import flightListSlice, { setFlightList, sortFlightList } from '../redux/slices/flightListSlice';
-
-
-import { useGetAllLaunchesQuery } from '../redux/api/launchApi';
-import { useDispatch } from 'react-redux';
-import { styles } from '../styles/styling';
-
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
-
-	const dispatch = useDispatch()
-	const { data: launches, isLoading, isError } = useGetAllLaunchesQuery()
-
-	// TODO: Move this to it's own file
-	useEffect( () => {
-	  try {
-		  if (!isError && launches !== undefined) {
-			
-			  let flightInfoList: FlightInformation[] = launches.map((flight: any) => {
-				
-				const {name, id, flight_number, date_unix, links, crew} = flight
-
-				let patch = {
-					default: (links.patch.small) ? false : true,
-					uri: links.patch.small ?? 'https://pbs.twimg.com/profile_images/1082744382585856001/rH_k3PtQ_400x400.jpg',
-					size: {
-						width: 100,
-						height: 100
-					}
-				}
-
-					// Move this to index.tsx
-				const crewListEle = (
-					(crew?.length > 0) 
-						? crew.map((crewMem:any, index:number) => {
-							switch (index) {
-								case 0: case 1: case 2: case 3: 
-									return <Text key={index}>{crewMem.role}</Text>
-								case 4:
-									return <Text key={index}>...</Text>
-								default: return
-							}
-						}) : <Text style={{...styles.listItem, ...styles.noCrew}}>No Crew</Text>
-					)
-				
-				return ({
-					name, 
-					id, 
-					number: flight_number,
-					dateLocal: new Date(date_unix*1000).toLocaleDateString(), 
-					dateUnix: date_unix,
-					webcast: flight.links?.webcast,
-					missionDetails: flight.details ?? 'No Mission Details Recorded.',
-					rocketStatus: {
-						reused: flight.fairings?.reused ?? undefined,
-						recoveryAttempt: flight.fairings?.recovery_attempt ?? undefined,
-						recovered: flight.fairings?.recovered ?? undefined
-					} as RocketStatus,
-					patch,
-					crew: flight?.crew,
-					crewListEle
-			  })
-		  })
-		  dispatch(setFlightList(flightInfoList))
-		  dispatch(sortFlightList())
-		}
-	  } catch (err) { console.error(err) }
-	}, [launches])
-
-
 	return (
 		<NavigationContainer
 		linking={LinkingConfiguration}

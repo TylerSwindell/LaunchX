@@ -9,14 +9,14 @@ function collapseStyles(visibleSection: FlightInfoSections, sectionName:FlightIn
 }
 
 export default function FlightInfoSection({ visiblityState, sectionName, flightInfo }: FlightInfoSectionProps) {
-	const { missionDetails, crew, rocketStatus } = flightInfo,
+	const { missionDetails, crewList, rocketStatus } = flightInfo,
 	{ visibleSection, setVisibleSection } = visiblityState;
 
 
     let sectionContent: string = EMPTY_STRING
     switch (sectionName) {
         case FlightInfoSections.CREW:
-            sectionContent = (crew.length > 0) ? 'Crew Section' : 'No Crew Aboard.'
+            sectionContent = (crewList.length > 0) ? 'Crew Section' : 'No Crew Aboard.'
         break
         case FlightInfoSections.ROCKET:
 

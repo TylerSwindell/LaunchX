@@ -61,8 +61,7 @@ export interface FlightInformation {
       height: number
     }
   },
-  crew: string[],
-  crewListEle: ReactNode
+  crewList: string[]
 };
 
 
@@ -78,4 +77,10 @@ export interface FlightInfoSectionProps {
 	}, 
 	sectionName: FlightInfoSections,
 	flightInfo: FlightInformation
+};
+
+export interface ImageSource {
+  uri: string,
+  width: number,
+  height: number
 };

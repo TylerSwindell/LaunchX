@@ -8,5 +8,7 @@ export default configureStore({
         [launchApi.reducerPath]: launchApi.reducer,
     },
     middleware: getDefaultMiddleware =>
-        getDefaultMiddleware({serializableCheck: false}).concat(launchApi.middleware)
+        getDefaultMiddleware({
+            serializableCheck: false
+        }).concat(launchApi.middleware)
 })

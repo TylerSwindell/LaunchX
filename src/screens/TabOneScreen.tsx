@@ -2,8 +2,7 @@ import { View } from '../components/Themed'
 import { RootTabScreenProps } from '../../types'
 import { styles } from '../styles/styling'
 import LaunchList from '../components/LaunchList'
-import { useGetUpcomingLaunchesQuery } from '../redux/api/launchApi'
-import { useEffect, useState } from 'react'
+import { useGetAllLaunchesQuery } from '../redux/api/launchApi'
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
 
