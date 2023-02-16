@@ -6,6 +6,7 @@
 import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { CompositeScreenProps, NavigatorScreenParams } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { ReactNode } from 'react';
 import { useWindowDimensions } from 'react-native';
 
 declare global {
@@ -52,9 +53,17 @@ export interface FlightInformation {
 	webcast: string,
   missionDetails: string,
 	rocketStatus: RocketStatus
-  patch: string | null
-  crew: string[]
+  patch: {
+    uri: string,
+    size: {
+      width: number,
+      height: number
+    }
+  },
+  crew: string[],
+  crewList: ReactNode
 };
+
 
 // Enums
 export enum FlightInfoSections{ DETAILS = "DETAILS", CREW = "CREW", ROCKET = "ROCKET" }

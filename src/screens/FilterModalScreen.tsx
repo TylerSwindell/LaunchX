@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { Platform, Pressable, StyleSheet } from 'react-native';
 import { setFlightList, getFlightList ,resetFlightList } from '../redux/slices/flightListSlice';
 import EditScreenInfo from '../components/EditScreenInfo'
+import Filter from '../components/Filter';
 import { Text, View } from '../components/Themed'
 
 export default function FilterModalScreen() {

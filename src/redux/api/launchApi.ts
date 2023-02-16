@@ -7,10 +7,10 @@ export const launchApi = createApi({
     tagTypes: ['Launches'],
     endpoints: (builder) => ({
         // Query Definitions
-        getAllLaunches: builder.query<FlightInformation[], void>({
+        getAllLaunches: builder.query<Array<object>, void>({
             query: () => 'launches'
         }),
-        getUpcomingLaunches: builder.query<FlightInformation[], void>({
+        getUpcomingLaunches: builder.query<Array<object>, void>({
             query: () => 'launches/upcoming'
         })
     }),

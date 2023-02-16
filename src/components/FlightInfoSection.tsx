@@ -22,12 +22,19 @@ export default function FlightInfoSection({ visiblityState, sectionName, flightI
 
             let undefinedCount = 0
 
+            for (const statusName of Object.keys(rocketStatus)) {
+                const statusValue = rocketStatus[statusName]
+                const statusNameString = (statusName === 'recoveryAttempt') 
+                    ? "Recovery Attempted" 
+                    : statusName.charAt(0).toUpperCase() + statusName.slice(1)
 
-
-            for (const status of Object.keys(rocketStatus)) {
-                const statusValue = rocketStatus[status]
-                if (statusValue === undefined) undefinedCount++
-                else sectionContent += `${status}: ${statusValue}\n`
+                if (statusValue === undefined) {
+                    undefinedCount++
+                    sectionContent += `${statusNameString}: No records avaliable\n`
+                } else {
+                    sectionContent += `${statusNameString}: ${statusValue}\n`
+                }
+                
             }
 
             if (undefinedCount === 3) sectionContent = 'No rocket data recorded.'
