@@ -1,4 +1,4 @@
-import { FlatList, Text, View, Pressable, Image } from 'react-native'
+import { FlatList, Text, View, Pressable, Image, StyleProp, StyleSheet } from 'react-native'
 import {styles} from '../styles/styling'
 import { FlightInformation } from '../../types'
 import { useDispatch, useSelector } from 'react-redux'
@@ -25,6 +25,7 @@ function Item (itemProps: ItemProps) {
 		height: 100, 
 	}
  
+
 	return (
 		<View style={styles.listItems}> 
 			<Text style={{...styles.listItem, ...styles.itemName}}>{name}</Text>
@@ -35,14 +36,9 @@ function Item (itemProps: ItemProps) {
 				<Text style={{...styles.listItem, ...styles.itemDate}}>{dateLocal}</Text>
 				<Text style={{...styles.listItem, ...styles.itemNumber}}>Flight #{number}</Text> 
 			</View>
-			<Image source={Image_Http_URL} 
-				style={{
-					position: 'absolute',
-					right: 8,
-					top: 50,
-					borderRadius: ((patch.default) ? '100%' : 0),
-				}} 
-			/>
+			<View style={ (patch.default) ? (localStyles.imageViewCircle) : (localStyles.imageViewDefault) } >
+				<Image source={Image_Http_URL} />
+			</View>
 
 		</View>
 	)
@@ -86,3 +82,19 @@ export default function LaunchList(props: any) {
 		</View>
 	)
 }
+
+const localStyles = StyleSheet.create({
+	imageViewDefault: {
+		position: 'absolute',
+		right: 8,
+		top: 50,
+		borderRadius: 0
+	},
+	imageViewCircle: {
+		position: 'absolute',
+		right: 8,
+		top: 50,
+		borderRadius: 100,
+		overflow: 'hidden'
+	}
+})

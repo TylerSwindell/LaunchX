@@ -1,9 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
-import { Platform, StyleSheet, Image, Dimensions, useWindowDimensions } from 'react-native';
+import { Platform, StyleSheet, Image, Dimensions, useWindowDimensions, StyleProp } from 'react-native';
 import { FlightInformation, ImageSize, ImageSource } from '../../types';
 
 import { View } from '../components/Themed'
-import { padding } from '../styles/styling';
 import { useEffect, useState } from 'react';
 import FlightInfoPanel from '../components/FlightInfoPanel';
 
