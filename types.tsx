@@ -44,6 +44,11 @@ export interface RocketStatus {
 	recovered: boolean | null
 };
 
+export interface CrewMember {
+  crew: string,
+  role: string
+}
+
 export interface FlightInformation {
 	name: string,
 	id: string,
@@ -61,7 +66,8 @@ export interface FlightInformation {
       height: number
     }
   },
-  crewList: string[]
+  crewList: string,
+  crew: CrewMember[]
 };
 
 
@@ -78,6 +84,8 @@ export interface FlightInfoSectionProps {
 	sectionName: FlightInfoSections,
 	flightInfo: FlightInformation
 };
+
+export interface ImageSize { width: number, height: number };
 
 export interface ImageSource {
   uri: string,

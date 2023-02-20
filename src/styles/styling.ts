@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
 	},
 	launchListItem: {
 		width: Dimensions.get('window').width-20,
-		...margin({top: 5, right: 10, bottom: 0, left: 10}),
+		marginTop: 5
 	},
 	listItems: {
 		backgroundColor: '#eee',
@@ -21,7 +21,7 @@ export const styles = StyleSheet.create({
 		overflow: 'hidden',
 		borderBottomWidth: StyleSheet.hairlineWidth,
 		borderRadius: 10,
-		...padding(20,10,10,10)
+		...padding(8)
 		
 	},
 	listItem: {
@@ -39,7 +39,7 @@ export const styles = StyleSheet.create({
 		position: 'absolute',
 		right: 0,
 		bottom:Dimensions.get('window').height/-9,
-		...margin({ all: 10 })
+		...margin(10)
 	},
 	itemDate: {
 		fontSize: 11,
@@ -49,7 +49,7 @@ export const styles = StyleSheet.create({
 		right: 0,
 		bottom:Dimensions.get('window').height/-11,
 		textAlign: 'right',
-		...margin({top: 10, right: 10, bottom: 10, left: 10})
+		...margin(10)
 	},
 	itemNumber: {
 		fontSize: 11,
@@ -58,7 +58,7 @@ export const styles = StyleSheet.create({
 		position: 'absolute',
 		right: 0,
 		bottom:Dimensions.get('window').height/-14,
-		...margin({ all: 10 })
+		...margin(10)
 	},
 	itemCrew: {
 		
@@ -69,7 +69,7 @@ export const styles = StyleSheet.create({
 	lowerCard: {
 		height: 100,
 		backgroundColor: '#999',
-		...padding(10,10,10,10),
+		...padding(10),
 		borderBottomStartRadius: 6,
 		borderBottomEndRadius: 6,
 	},
@@ -83,7 +83,16 @@ interface sides {
 	left?: number,
 };
 
-export function padding(top: number, right?: number, bottom?: number, left?: number) {
+export function padding(padding: sides | number) {
+
+	if (typeof(padding) === 'number') return { 
+		paddingTop: padding, 
+		paddingRight: padding, 
+		paddingBottom: padding, 
+		paddingLeft: padding 
+	}
+
+	const {top, left, bottom, right} = padding
 	return {
 		paddingTop: top,
 		paddingRight: right === undefined || right === null ? 0 : right,
@@ -92,13 +101,16 @@ export function padding(top: number, right?: number, bottom?: number, left?: num
 	}
 }
 
-export function margin(marginSides: sides) {
-	const {all, top, right, bottom, left} = marginSides
-	
-	console.log(marginSides)
+export function margin(margins: sides | number) {
 
-	if ('all' in marginSides) return { marginTop: all, marginRight: all, marginBottom: all, marginLeft: all }
+	if (typeof(margins) === 'number') return { 
+		marginTop: margins, 
+		marginRight: margins, 
+		marginBottom: margins, 
+		marginLeft: margins 
+	}
 
+	const {top, right, bottom, left} = margins	
 	return {
 		marginTop: top,
 		marginRight: right === undefined || right === null ? 0 : right,

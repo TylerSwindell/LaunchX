@@ -12,7 +12,7 @@ export default function FlightInfoPanel (flightInfoProps: FlightInfoProps) {
 	const { 
 		name, id, number, 
 		dateLocal, webcast, 
-		missionDetails, crew,
+		missionDetails, crewList,
 		rocketStatus, patch 
 	} = flightInfoProps.flightInfo
 
@@ -26,13 +26,13 @@ export default function FlightInfoPanel (flightInfoProps: FlightInfoProps) {
 			borderTopRightRadius: 15,
 			borderTopLeftRadius: 15,
 			backgroundColor: 'white',
-			...padding(20,10,25,10)
+			...padding({top:20, right:10, bottom: 25, left: 10})
 		}}> 
 			{/* Upper Section */}
 			<View style={{
                 flex: 1, 
                 width: '100%',
-                ...padding(10, 10, 10, 10),
+                ...padding(10),
                 justifyContent: 'center', 
                 flexDirection: 'row',
                 alignItems: 'center', 
@@ -64,7 +64,7 @@ export default function FlightInfoPanel (flightInfoProps: FlightInfoProps) {
 				flexDirection: 'row',
 				justifyContent: 'space-between',
 				width: '100%',
-				...padding(0, 10, 10, 10),
+				...padding({top: 0, right: 10, bottom: 10, left: 10}),
 				backgroundColor: 'white',
 			}}>
 				<Text style={localStyles.footerText}>Flight #{ number }</Text>
@@ -94,6 +94,7 @@ const localStyles = StyleSheet.create({
 		color: 'black',
 		fontSize: 22,
         marginBottom: 10, 
+		width: '70%'
 	},
 	id: { fontSize: 10, color: 'black' },
 	footerText: {

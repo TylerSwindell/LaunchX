@@ -9,14 +9,21 @@ function collapseStyles(visibleSection: FlightInfoSections, sectionName:FlightIn
 }
 
 export default function FlightInfoSection({ visiblityState, sectionName, flightInfo }: FlightInfoSectionProps) {
-	const { missionDetails, crewList, rocketStatus } = flightInfo,
+	const { missionDetails, crewList, rocketStatus, crew } = flightInfo,
 	{ visibleSection, setVisibleSection } = visiblityState;
 
 
     let sectionContent: string = EMPTY_STRING
     switch (sectionName) {
         case FlightInfoSections.CREW:
-            sectionContent = (crewList.length > 0) ? 'Crew Section' : 'No Crew Aboard.'
+            sectionContent = (crew.length === 0) ? 'No Crew Aboard.' : (() => {
+                let crewListText = ''
+
+                for (const member of crew) {
+                    crewListText += `Role: ${member.role}\nID: ${member.crew}\n\n`
+                }
+                return crewListText
+            })()
         break
         case FlightInfoSections.ROCKET:
 
@@ -67,7 +74,7 @@ export default function FlightInfoSection({ visiblityState, sectionName, flightI
 
 const localStyles = StyleSheet.create({
     sectionTitle: { fontWeight: 'bold', color: 'black', fontSize: 20},
-    sectionHeader: { backgroundColor: 'rgba(0,0,0,0)', ...padding(8, 0, 10,0) },
+    sectionHeader: { backgroundColor: 'rgba(0,0,0,0)', ...padding({top: 8, left: 0, bottom: 10, right: 0}) },
     sectionHeaderHidden: { height: '100%', justifyContent: 'center'},
     missionDetails: {
         fontSize: 12,
@@ -82,7 +89,7 @@ const localStyles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'flex-start',
         marginBottom: 10,
-        ...padding(10,10,10,10)
+        ...padding(10)
     },
     sectionViewHidden: {
         backgroundColor: '#ccc',
@@ -95,6 +102,6 @@ const localStyles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'flex-start',
         marginBottom: 10,
-        ...padding(10,10,10,10)
+        ...padding(10)
     },
 })

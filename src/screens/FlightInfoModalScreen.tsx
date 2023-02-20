@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import { Platform, StyleSheet, Image, Dimensions, useWindowDimensions } from 'react-native';
-import { FlightInformation, ImageSource } from '../../types';
+import { FlightInformation, ImageSize, ImageSource } from '../../types';
 
 import { View } from '../components/Themed'
 import { padding } from '../styles/styling';
@@ -8,13 +8,13 @@ import { useEffect, useState } from 'react';
 import FlightInfoPanel from '../components/FlightInfoPanel';
 
 
-const PATCH_ZOOM = 2.5
+const PATCH_ZOOM = 2
 
 export default function FlightInfoModalScreen(props:any) {
 	const flightInfo = props.route.params.flightInfo as FlightInformation
 	const { patch } = flightInfo
 
-	interface ImageSize { width: number, height: number };
+	
 
 	let cardBackground: ImageSource = {
 		uri: 'https://render.fineartamerica.com/images/images-profile-flow/400/images/artworkimages/mediumlarge/3/into-the-stars-2-ai-artisan.jpg',
@@ -33,7 +33,7 @@ export default function FlightInfoModalScreen(props:any) {
 	
 	let patchImage: ImageSource = { 
 		uri: patch.uri || spaceXTwitterPFP, 
-		width: 0,
+		width: 0, 
 		height: 0
 	}
 
@@ -75,7 +75,7 @@ export default function FlightInfoModalScreen(props:any) {
 				backgroundColor: 'rgba(0,0,0,0)',
 				height: 0
 			}}>
-				<Image source={patchSource} style={{ borderRadius: ((patch) ? 0 : '100%') }} />
+				<Image source={patchSource} style={{ borderRadius: ((patch.default) ? '100%' : 0) }} />
 			</View>
 			{/* Use a light status bar on iOS to account for the black space above the modal */}
 			<StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />

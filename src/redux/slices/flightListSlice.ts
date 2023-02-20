@@ -56,7 +56,8 @@ const flightListSlice = createSlice({
                                 recovered: flight.fairings?.recovered ?? undefined
                             } as RocketStatus,
                             patch,
-                            crewList
+                            crewList,
+                            crew
                         })
                     })
                     state.list = flightInfoList

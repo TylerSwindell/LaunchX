@@ -1,7 +1,6 @@
 # LaunchX
 
-LaunchX is built to keep you up to date with upcoming SpaceX launches.
-Search and view details about upcoming and past launches.
+LaunchX is built to keep you up to date with details about upcoming and past SpaceX launches.
 
 ## Tech Stack
 
@@ -32,8 +31,7 @@ $ npx expo start
 You can run the app through the metro bundler using a: android or i: iPhone.
 Be sure to setup the emulators:
 
-[Android Studio](https://docs.expo.dev/workflow/android-studio-emulator/)
-[iOS Simulator](https://docs.expo.dev/workflow/ios-simulator/)
+[Android Studio](https://docs.expo.dev/workflow/android-studio-emulator/) | [iOS Simulator](https://docs.expo.dev/workflow/ios-simulator/)
 
 ### [Expo](https://docs.expo.dev/get-started/installation/)
 
@@ -43,3 +41,17 @@ LaunchX utilizes Expo for it's React-Native build and configuration
 
 Public respository for all SpaceX api endpoints and documentation
 
+### [Redux RTK](https://github.com/r-spacex/SpaceX-API/blob/master/docs/README.md)
+
+Redux is utilized for state management and data api queries
+
+### [Typescript](https://www.typescriptlang.org/docs/handbook/intro.html)
+
+
+## Features to add:
+
+1. Configure FlightInfoSection's contentSection variable to be an Element that can be styled in the switch statement that renders the content
+2. Filter Modal
+3. Filter by time / date
+4. Filter by details (Crew count, crew name, etc.)
+5. 
