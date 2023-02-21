@@ -17,14 +17,19 @@ const flightListSlice = createSlice({
                         const {name, id, flight_number, date_unix, links, crew} = flight
         
                         const spaceXTwitterPFP = 'https://pbs.twimg.com/profile_images/1082744382585856001/rH_k3PtQ_400x400.jpg'
-        
+
+                        const patchDefault = (links?.patch?.small) ? false : true
+                        const patchUri = links.patch.small ?? spaceXTwitterPFP
+
+                        
+
                         // Parse patch data
                         let patch = {
-                            default: (links.patch.small) ? false : true,
-                            uri: links.patch.small ?? spaceXTwitterPFP,
+                            default: patchDefault,
+                            uri: patchUri,
                             size: {
-                                width: 100,
-                                height: 100
+                                width: 200,
+                                height: 200
                             }
                         }
         

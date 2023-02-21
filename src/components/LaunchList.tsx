@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { useGetAllLaunchesQuery } from '../redux/api/launchApi'
 import store from '../redux/store'
 import { updateFlightList } from '../redux/slices/flightListSlice'
+import config from '../config'
 
 
 interface ItemProps {
@@ -18,6 +19,10 @@ function Item (itemProps: ItemProps) {
 		id, crewList, name, number, 
 		dateLocal, patch
 	} = itemProps.item
+
+	const {size} = patch
+
+	if (config.developmentMode) console.log(name, patch.default, size)
 
 	let Image_Http_URL = { 
 		uri: patch.uri, 
@@ -57,7 +62,7 @@ export default function LaunchList(props: any) {
 	}, [launches])
 
 	store.subscribe(() => { 
-		console.log('Store Updated') 
+		if (config.developmentMode) console.log('Store Updated') 
 	})
 
 	return (
@@ -87,13 +92,13 @@ const localStyles = StyleSheet.create({
 	imageViewDefault: {
 		position: 'absolute',
 		right: 8,
-		top: 50,
+		top: 35,
 		borderRadius: 0
 	},
 	imageViewCircle: {
 		position: 'absolute',
 		right: 8,
-		top: 50,
+		top: 35,
 		borderRadius: 100,
 		overflow: 'hidden'
 	}

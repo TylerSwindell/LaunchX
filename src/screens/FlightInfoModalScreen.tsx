@@ -44,7 +44,7 @@ export default function FlightInfoModalScreen(props:any) {
 
 				if (width/height > 1) {
 					// switch ({windowWidth, windowHeight}) {
-	
+					// 
 					// }
 				} else if (width/height === 1) {
 					imageSize = {width: 250, height: 250}

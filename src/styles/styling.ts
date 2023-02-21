@@ -31,7 +31,8 @@ export const styles = StyleSheet.create({
 		fontWeight: 'bold',
 		color: '#000',
 		fontSize: 20,
-		marginBottom: 10
+		width: '70%',
+		...margin({top: 10, bottom: 10}),
 	},
 	itemId: {
 		fontSize: 11,

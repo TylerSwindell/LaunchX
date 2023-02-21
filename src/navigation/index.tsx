@@ -12,7 +12,6 @@ import { ColorSchemeName, Text, Image, Pressable } from 'react-native';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import FilterModalScreen from '../screens/FilterModalScreen';
 import FlightInfoModalScreen from '../screens/FlightInfoModalScreen';
 import NotFoundScreen from '../screens/NotFoundScreen';
 import TabOneScreen from '../screens/TabOneScreen';
@@ -42,7 +41,6 @@ function RootNavigator() {
 			<Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
 			<Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
 			<Stack.Group screenOptions={{ presentation: 'modal' }}>
-				<Stack.Screen name="FilterModal" options={{title:'Filter Launches'}} component={FilterModalScreen} />
 				<Stack.Screen name="FlightInfoModal" options={{title:'Flight Info'}} component={FlightInfoModalScreen} />
 			</Stack.Group>
 		</Stack.Navigator>
